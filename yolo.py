@@ -144,6 +144,8 @@ class YOLO(object):
         max_top = 0
         max_bottom = 0
         id = 0
+        height = 1
+        max_score = 0
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
             box = out_boxes[i]
