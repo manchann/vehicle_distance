@@ -178,33 +178,33 @@ class YOLO(object):
                     max_bottom = bottom
                     max_score = score
                     width = abs(w)
-                    global height = abs(h)
+                    height = abs(h)
                     print('w :', w)
                     print('h :', h)
-        # if max_area != 0:
-        ##using car_original_width
-        car_original_width = 72 # in inch
-        car_original_height = 60
-        f = 250 # focal length
-        # d = (car_original_width * f)/ width
-        d = (car_original_height * f)/ height
-        d = d/12
-        distance = 'd='
-        unit = 'ft'
-        text = '{} {:.2f} {}'.format(distance, d, unit)
-        x, y = (max_left + id + 10, max_top + id - 25)
-        # text = 'hello'
-        w, h = font.getsize(text)
-        draw.rectangle(
-            [max_left + id, max_top + id, max_right - id, max_bottom - id],
-            outline=(255,0,0))
-        draw.rectangle(
-            (x,y, x+w, y+h),
-            fill= 'black')
-        draw.text((x, y),text,
-             fill='white', font=font)
-        print('score =', max_score)
-        return image
+            # if max_area != 0:
+            ##using car_original_width
+            car_original_width = 72 # in inch
+            car_original_height = 60
+            f = 250 # focal length
+            # d = (car_original_width * f)/ width
+            d = (car_original_height * f)/ height
+            d = d/12
+            distance = 'd='
+            unit = 'ft'
+            text = '{} {:.2f} {}'.format(distance, d, unit)
+            x, y = (max_left + id + 10, max_top + id - 25)
+            # text = 'hello'
+            w, h = font.getsize(text)
+            draw.rectangle(
+                [max_left + id, max_top + id, max_right - id, max_bottom - id],
+                outline=(255,0,0))
+            draw.rectangle(
+                (x,y, x+w, y+h),
+                fill= 'black')
+            draw.text((x, y),text,
+                 fill='white', font=font)
+            print('score =', max_score)
+            return image
 
     def close_session(self):
         self.sess.close()
