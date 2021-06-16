@@ -17,7 +17,9 @@ from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
-
+height = 1
+max_score = 0
+draw = 0
 class YOLO(object):
     _defaults = {
         # "model_path": 'model_data/yolo.h5',
@@ -144,9 +146,7 @@ class YOLO(object):
         max_top = 0
         max_bottom = 0
         id = 0
-        height = 1
-        max_score = 0
-        draw = 0
+        
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
             box = out_boxes[i]
@@ -154,6 +154,7 @@ class YOLO(object):
             top, left, bottom, right = box
             # distance = 'distance'
             label = '{} {:.2f}'.format(predicted_class, score)
+            global draw
             draw = ImageDraw.Draw(image)
             label_size = draw.textsize(label, font)
             top = max(0, np.floor(top + 0.5).astype('int32'))
@@ -171,7 +172,8 @@ class YOLO(object):
                 h = top - bottom
                 area1 = abs(w*h)
                 print('area = ', area1)
-
+                if area1 > 1000000:
+                    continue
                 if area1 > max_area:
                     max_area = area1
                     id = i
@@ -179,6 +181,8 @@ class YOLO(object):
                     max_right = right
                     max_top = top
                     max_bottom = bottom
+                    global max_score
+                    global height
                     max_score = score
                     width = abs(w)
                     height = abs(h)
