@@ -211,6 +211,10 @@ class YOLO(object):
         draw.text((x, y),text,
              fill='white', font=font)
         print('score =', max_score)
+        print('test')
+        
+        if d <=3 :
+            print('사고 발생')
         return image
 
     def close_session(self):
