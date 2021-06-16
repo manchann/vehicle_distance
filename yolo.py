@@ -178,7 +178,7 @@ class YOLO(object):
                     max_bottom = bottom
                     max_score = score
                     width = abs(w)
-                    height = abs(h)
+                    global height = abs(h)
                     print('w :', w)
                     print('h :', h)
         # if max_area != 0:
