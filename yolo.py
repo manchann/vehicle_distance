@@ -215,6 +215,7 @@ class YOLO(object):
         
         if d <=3 :
             print('사고 발생')
+            return 'emergency'
         return image
 
     def close_session(self):
@@ -286,6 +287,8 @@ def detect_video(yolo, video_path, output_path=""):
         return_value, frame = vid.read()
         image = Image.fromarray(frame)
         image = yolo.detect_image(image)
+        if image == 'emergency':
+            break
         result = np.asarray(image)
         curr_time = timer()
         exec_time = curr_time - prev_time
